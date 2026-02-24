@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mini Stack Frontend</title>
+</head>
+<body>
+    <h1>Frontend OK 🚀</h1>
+    <p>Le backend répond : <span id="backend-response">...</span></p>
+
+    <script>
+        // Adresse complète du backend pour accéder depuis le navigateur
+        fetch("http://192.168.253.132:30001/health")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("backend-response").innerText = data;
+            })
+            .catch(err => {
+                document.getElementById("backend-response").innerText = "Erreur : " + err;
+            });
+    </script>
+</body>
+</html>
