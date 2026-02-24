@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: yanis707/frontend-k8s:v3
+          image: yanis707/frontend-k8s:latest
           ports:
             - containerPort: 80

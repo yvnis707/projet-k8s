@@ -13,7 +13,32 @@ spec:
         app: backend
     spec:
       containers:
-      - name: backend
-        image: yanis707/backend-k8s:v1
-        ports:
-        - containerPort: 5000
+        - name: backend
+          image: yanis707/backend-k8s:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: DB_PASSWORD
+
+          # SecurityContext pour OPA / sécurité
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+
+          # Limites de ressources (obligatoire pour HPA)
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+
+      # Sécurité pour tous les containers du pod
+      securityContext:
+        fsGroup: 1000
